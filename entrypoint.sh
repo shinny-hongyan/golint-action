@@ -2,7 +2,7 @@
 
 cd $GITHUB_WORKSPACE
 
-GOLINT_OUTPUT="$(golint -set_exit_status $1)"
+GOLINT_OUTPUT="$(go list $1/... | grep -v /vendor/ | xargs -L1 golint -set_exit_status)"
 
 if [ $? -ne 0 ]; then
   echo "${GOLINT_OUTPUT}"
